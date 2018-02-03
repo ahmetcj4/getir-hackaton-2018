@@ -1,24 +1,33 @@
 package com.omka.mackhaton.screen.filter;
 
 import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableField;
+
+import com.appeaser.sublimepickerlibrary.datepicker.SublimeDatePicker;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
 
 /**
  * Created by ahmet on 1/30/2018.
  */
 
 public class FilterViewModel extends ViewModel {
-    ObservableField<String> text = new ObservableField<>();
 
-    public FilterViewModel() {
-        text.set("Hello World!");
+    public FilterViewModel() {}
+
+    public SublimeOptions getOptions() {
+        SublimeOptions options = new SublimeOptions();
+        options.setPickerToShow(SublimeOptions.Picker.DATE_PICKER);
+        options.setDisplayOptions(SublimeOptions.ACTIVATE_DATE_PICKER);
+        options.setCanPickDateRange(true);
+        return options;
+    }
+    private SublimeDatePicker.OnDateChangedListener listener = (view, selectedDate) -> {};
+    private SublimeDatePicker.DatePickerValidationCallback validationCallback = valid -> {};
+
+    public SublimeDatePicker.DatePickerValidationCallback getValidationCallback() {
+        return validationCallback;
     }
 
-    public ObservableField<String> getText() {
-        return text;
-    }
-
-    public void setText(ObservableField<String> text) {
-        this.text = text;
+    public SublimeDatePicker.OnDateChangedListener getListener() {
+        return listener;
     }
 }
