@@ -2,6 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="background">#eceaf4</color>
     <color name="colorAccent">#5e42ba</color>
+    <color name="background">#eceaf4</color>
+    <color name="disabled">#8a000000</color>
+
+    <!--filter button colors-->
+    <color name="btFilterDisabled">#8a000000</color>
+    <color name="btFilterPressed">#BB5e42ba</color>
+    <color name="btFilterNormal">#FF5e42ba</color>
 </resources>

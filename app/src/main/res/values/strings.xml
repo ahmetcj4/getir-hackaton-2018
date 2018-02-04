@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Mackhaton</string>
+    <string name="bt_filter_text">filter</string>
+    <string name="filter_min">min</string>
+    <string name="filter_max">max</string>
 </resources>
