@@ -4,6 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SearchRequest {
+    public SearchRequest() {
+    }
+
+    public SearchRequest(String startDate, String endDate, int minCount, int maxCount) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.minCount = minCount;
+        this.maxCount = maxCount;
+    }
 
     @SerializedName("startDate")
     @Expose

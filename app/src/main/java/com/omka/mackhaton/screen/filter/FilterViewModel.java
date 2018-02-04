@@ -89,4 +89,20 @@ public class FilterViewModel extends ViewModel {
             return 1;
         }
     }
+
+    public int getCurrentMin(){
+        try {
+           return Integer.parseInt(minText.get());
+        } catch (Exception e){
+            return 0;
+        }
+    }
+
+    public int getCurrentMax(){
+        try {
+           return Integer.parseInt(maxText.get());
+        } catch (Exception e){
+            return 0;
+        }
+    }
 }

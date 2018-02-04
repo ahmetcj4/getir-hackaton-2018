@@ -12,10 +12,18 @@ import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.omka.mackhaton.R;
 import com.omka.mackhaton.databinding.ActivityFilterBinding;
+import com.omka.mackhaton.entity.request.SearchRequest;
+import com.omka.mackhaton.entity.response.SearchResult;
+import com.omka.mackhaton.network.NetworkApi;
+import com.omka.mackhaton.network.NetworkCallback;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -44,18 +52,48 @@ public class FilterActivity extends AppCompatActivity {
                     break;
                 case FilterViewModel.LOADING:
                     SelectedDate selectedDate = binding.dateRangePicker.getSelectedDate();
-/*
-                Toast.makeText(this,
-                        filterVM.getMinText().get() + " \n" +
-                                filterVM.getMaxText().get() + " \n" +
-                                selectedDate.getFirstDate().toString() + " \n" +
-                                selectedDate.getFirstDate().toString()
-                        , Toast.LENGTH_SHORT).show();
-*/
+
+                    SearchRequest searchRequest = new SearchRequest(
+                            formatDateToString(selectedDate.getFirstDate()),
+                            formatDateToString(selectedDate.getEndDate()),
+                            filterVM.getCurrentMin(),
+                            filterVM.getCurrentMax()
+                    );
+
+                    NetworkApi.getInstance().search(searchRequest, new NetworkCallback<SearchResult>() {
+                        @Override
+                        public void onSuccess(SearchResult response) {
+                            switch (response.getCode()){
+                                case 0:
+                                    break;
+                                default:
+                                    // TODO: 2/4/2018 show error
+                                    Toast.makeText(FilterActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                            communicationLiveData.postValue(FilterViewModel.DEFAULT);
+                        }
+
+                        @Override
+                        public void onServiceFailure(int httpResponseCode, String message) {
+                            Toast.makeText(FilterActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onNetworkFailure(Throwable message) {
+                            Toast.makeText(FilterActivity.this, R.string.network_failure_error, Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     break;
             }
         });
+    }
+
+    private String formatDateToString(Calendar firstDate) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        fmt.setCalendar(firstDate);
+        return fmt.format(firstDate.getTime());
     }
 
     private void updateLayout(int b) {

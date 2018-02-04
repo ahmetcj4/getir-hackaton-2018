@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    dataBinding.enabled=true
+    dataBinding.enabled = true
     defaultConfig {
         applicationId "com.omka.mackhaton"
         minSdkVersion 15
@@ -22,9 +22,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-ext{
-    supportLibraryVersion="26.1.0"
-    lifecycleArchitectureVersion="1.1.0"
+ext {
+    supportLibraryVersion = "26.1.0"
+    lifecycleArchitectureVersion = "1.1.0"
+    retrofitVersion = "2.3.0"
+    okHttpVersion = "3.8.0"
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -35,7 +37,15 @@ dependencies {
     //Architecture Components
     implementation "android.arch.lifecycle:extensions:$lifecycleArchitectureVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$lifecycleArchitectureVersion"
+
+    //Network
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion"
     implementation 'com.google.code.gson:gson:2.8.2'
+
     //view libraries
     implementation 'com.appeaser.sublimepickerlibrary:sublimepickerlibrary:2.1.1'
     testImplementation 'junit:junit:4.12'
