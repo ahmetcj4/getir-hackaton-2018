@@ -18,9 +18,8 @@ import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.omka.mackhaton.R;
 import com.omka.mackhaton.databinding.ActivityFilterBinding;
 import com.omka.mackhaton.entity.request.SearchRequest;
-import com.omka.mackhaton.entity.response.SearchResult;
-import com.omka.mackhaton.network.NetworkApi;
-import com.omka.mackhaton.network.NetworkCallback;
+import com.omka.mackhaton.screen.showResults.ShowResultsActivity;
+import com.omka.mackhaton.task.SearchTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,31 +59,17 @@ public class FilterActivity extends AppCompatActivity {
                             filterVM.getCurrentMax()
                     );
 
-                    NetworkApi.getInstance().search(searchRequest, new NetworkCallback<SearchResult>() {
-                        @Override
-                        public void onSuccess(SearchResult response) {
-                            switch (response.getCode()){
-                                case 0:
-                                    break;
-                                default:
-                                    // TODO: 2/4/2018 show error
-                                    Toast.makeText(FilterActivity.this, response.getMsg(), Toast.LENGTH_SHORT).show();
-                                    break;
-                            }
-                            communicationLiveData.postValue(FilterViewModel.DEFAULT);
+                    SearchTask.getInstance().search(searchRequest, (status, message) -> {
+                        switch (status) {
+                            case SearchTask.SUCCESS:
+                                ShowResultsActivity.start(this);
+                                break;
+                            case SearchTask.FAIL:
+                                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                                break;
                         }
-
-                        @Override
-                        public void onServiceFailure(int httpResponseCode, String message) {
-                            Toast.makeText(FilterActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onNetworkFailure(Throwable message) {
-                            Toast.makeText(FilterActivity.this, R.string.network_failure_error, Toast.LENGTH_SHORT).show();
-                        }
+                        communicationLiveData.postValue(FilterViewModel.DEFAULT);
                     });
-
                     break;
             }
         });
