@@ -22,6 +22,8 @@ public class ShowResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_results);
-        ShowResultsViewModel filterVM = ViewModelProviders.of(this).get(ShowResultsViewModel.class);
+        ShowResultsViewModel showResultsVM = ViewModelProviders.of(this).get(ShowResultsViewModel.class);
+        binding.setShowResultsVM(showResultsVM);
+        binding.executePendingBindings();
     }
 }

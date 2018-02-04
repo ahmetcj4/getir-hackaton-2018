@@ -28,8 +28,12 @@ public class SearchTask {
         return instance;
     }
 
+    public List<Record> load(){
+        return records;
+    }
 
-    public void search(SearchRequest searchRequest, @NonNull SearchResultListener listener) {
+    public void fetch(SearchRequest searchRequest, @NonNull SearchResultListener listener) {
+        records = null;
         NetworkApi.getInstance().search(searchRequest, new NetworkCallback<SearchResult>() {
             @Override
             public void onSuccess(SearchResult response) {

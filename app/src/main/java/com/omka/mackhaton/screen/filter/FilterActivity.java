@@ -61,7 +61,7 @@ public class FilterActivity extends AppCompatActivity {
                             filterVM.getCurrentMax()
                     );
 
-                    SearchTask.getInstance().search(searchRequest, (status, message) -> {
+                    SearchTask.getInstance().fetch(searchRequest, (status, message) -> {
                         communicationLiveData.postValue(FilterViewModel.DEFAULT);
                         switch (status) {
                             case SearchTask.SUCCESS:
