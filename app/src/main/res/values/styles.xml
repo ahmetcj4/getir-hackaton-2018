@@ -16,4 +16,12 @@
         <item name="spNumbersInnerTextColorPtr">@color/day_item_color</item>
         <item name="spNumbersBackgroundColorPtr">@color/background</item>
     </style>
+
+    <style name="etNumber">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">10</item>
+    </style>
 </resources>

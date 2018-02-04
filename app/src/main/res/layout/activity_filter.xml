@@ -10,6 +10,8 @@
             type="com.omka.mackhaton.screen.filter.FilterViewModel" />
 
         <import type="java.util.Calendar" />
+
+        <import type="android.text.TextUtils" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -22,15 +24,13 @@
             android:id="@+id/date_range_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/et1"
+            app:initWithRange="@{true}"
+            app:layout_constraintBottom_toTopOf="@+id/til_min"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="spread"
-            app:listener="@{filterVM.listener}"
-            app:options="@{filterVM.options}"
-            app:validationCallback="@{filterVM.validationCallback}" />
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <Button
             android:id="@+id/bt_filter"
@@ -38,44 +38,48 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_padding"
             android:background="@drawable/bt_filter"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:enabled="@{!(TextUtils.isEmpty(filterVM.minText)||TextUtils.isEmpty(filterVM.maxText))}"
+            android:onClick="@{filterVM::performFilter}"
             android:text="@string/bt_filter_text"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/date_range_picker"
             app:layout_constraintRight_toRightOf="@id/date_range_picker"
-            app:layout_constraintTop_toBottomOf="@id/et1" />
+            app:layout_constraintTop_toBottomOf="@id/til_min" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/et1"
+            android:id="@+id/til_min"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/normal_padding"
             app:layout_constraintBottom_toTopOf="@id/bt_filter"
             app:layout_constraintLeft_toLeftOf="@id/date_range_picker"
-            app:layout_constraintRight_toLeftOf="@+id/et2"
+            app:layout_constraintRight_toLeftOf="@+id/til_max"
             app:layout_constraintTop_toBottomOf="@id/date_range_picker">
 
             <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/filter_min" />
+                style="@style/etNumber"
+                android:hint="@string/filter_min"
+                android:nextFocusDown="@+id/et_max"
+                android:text="@={filterVM.minText}" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/et2"
+            android:id="@+id/til_max"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/normal_padding"
-            app:layout_constraintTop_toTopOf="@id/et1"
-            app:layout_constraintBottom_toBottomOf="@id/et1"
-            app:layout_constraintLeft_toRightOf="@id/et1"
-            app:layout_constraintRight_toRightOf="@id/date_range_picker">
+            app:layout_constraintBottom_toBottomOf="@id/til_min"
+            app:layout_constraintLeft_toRightOf="@id/til_min"
+            app:layout_constraintRight_toRightOf="@id/date_range_picker"
+            app:layout_constraintTop_toTopOf="@id/til_min">
 
             <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/filter_max" />
+                android:id="@+id/et_max"
+                style="@style/etNumber"
+                android:hint="@string/filter_max"
+                android:text="@={filterVM.maxText}" />
         </android.support.design.widget.TextInputLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>
