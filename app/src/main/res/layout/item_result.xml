@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,45 +10,73 @@
             type="com.omka.mackhaton.screen.showResults.ResultItemViewModel" />
     </data>
 
-    <LinearLayout
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/normal_padding"
-        android:layout_marginLeft="@dimen/normal_padding"
         android:gravity="center"
-        android:orientation="vertical">
-
+        android:paddingRight="@dimen/above_normal_margin"
+        android:paddingLeft="@dimen/large_padding"
+        android:background="@drawable/item_result_background"
+        android:layout_margin="@dimen/normal_padding">
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vm.createdAt}"
-            android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:fontFamily="roboto"
+            android:text="@{vm.key}"
+            android:layout_margin="@dimen/normal_padding"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="Ince hamur" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vm.key}"
-            android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            android:fontFamily="roboto"
+            android:lineSpacingExtra="8sp"
+            android:text="@{vm.createdAt}"
+            android:typeface="normal"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="2 Tl" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/above_large_padding"
+            android:fontFamily="roboto"
             android:text="@{vm.value}"
-            android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            android:textSize="10sp"
+            android:layout_marginBottom="@dimen/above_normal_margin"
+            android:typeface="monospace"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="2 Tl" />
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="roboto"
+            android:layout_marginRight="@dimen/normal_padding"
             android:text="@{vm.totalCount}"
-            android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            android:typeface="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView"
             tools:text="2 Tl" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent" />
-    </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
 </layout>

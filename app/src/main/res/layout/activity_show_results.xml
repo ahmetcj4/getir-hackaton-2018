@@ -8,6 +8,8 @@
         <variable
             name="showResultsVM"
             type="com.omka.mackhaton.screen.showResults.ShowResultsViewModel" />
+        <import type="com.omka.mackhaton.common.ViewUtils"/>
+        <import type="android.support.v7.widget.DividerItemDecoration"/>
 
     </data>
 
@@ -21,6 +23,8 @@
             android:id="@+id/rv_results"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:paddingTop="@dimen/normal_padding"
+            android:paddingBottom="@dimen/normal_padding"
             android:orientation="vertical"
             app:itemLayout="@{@layout/item_result}"
             app:itemList="@{showResultsVM.items}"
@@ -38,6 +42,7 @@
             android:orientation="horizontal"
             app:itemLayout="@{@layout/item_result_list_number_tab}"
             app:itemList="@{showResultsVM.itemTabs}"
+            app:divider="@{ViewUtils.getDividerItemDecoration(context,DividerItemDecoration.HORIZONTAL)}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintRight_toRightOf="@id/rv_results"
             app:layout_constraintLeft_toLeftOf="@id/rv_results"

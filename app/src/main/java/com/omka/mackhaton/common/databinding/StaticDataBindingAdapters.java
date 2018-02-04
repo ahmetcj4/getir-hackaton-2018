@@ -1,6 +1,7 @@
 package com.omka.mackhaton.common.databinding;
 
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SublimeDatePicker;
@@ -30,5 +31,10 @@ public class StaticDataBindingAdapters {
                 return itemList==null?0:itemList.size();
             }
         });
+    }
+
+    @BindingAdapter("divider")
+    public static void addDivider(RecyclerView rv, DividerItemDecoration itemDecoration){
+        rv.addItemDecoration(itemDecoration);
     }
 }
