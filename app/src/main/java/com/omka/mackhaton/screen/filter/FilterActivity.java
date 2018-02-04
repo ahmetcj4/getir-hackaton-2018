@@ -9,13 +9,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.Snackbar;
 import android.support.transition.TransitionManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
 import com.omka.mackhaton.R;
+import com.omka.mackhaton.common.ViewUtils;
 import com.omka.mackhaton.databinding.ActivityFilterBinding;
 import com.omka.mackhaton.entity.request.SearchRequest;
 import com.omka.mackhaton.screen.showResults.ShowResultsActivity;
@@ -28,6 +29,7 @@ public class FilterActivity extends AppCompatActivity {
 
     private ActivityFilterBinding binding;
     private MutableLiveData<Integer> communicationLiveData;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +62,26 @@ public class FilterActivity extends AppCompatActivity {
                     );
 
                     SearchTask.getInstance().search(searchRequest, (status, message) -> {
+                        communicationLiveData.postValue(FilterViewModel.DEFAULT);
                         switch (status) {
                             case SearchTask.SUCCESS:
                                 ShowResultsActivity.start(this);
                                 break;
                             case SearchTask.FAIL:
-                                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                                snackbar = ViewUtils.getSnackbarWithAction(this,message,"Dissmiss", v -> {
+                                    if (snackbar !=null){
+                                        snackbar.dismiss();
+                                    }
+                                });
+                                snackbar.show();
                                 break;
                         }
-                        communicationLiveData.postValue(FilterViewModel.DEFAULT);
                     });
                     break;
             }
         });
     }
+
 
     private String formatDateToString(Calendar firstDate) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -102,4 +110,6 @@ public class FilterActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }
+

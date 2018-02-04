@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        tools:context="com.omka.mackhaton.screen.filter.FilterActivity">
+        tools:context="com.omka.mackhaton.screen.showResults.ShowResultsActivity">
 
 
     </android.support.constraint.ConstraintLayout>
