@@ -22,6 +22,7 @@
 
         <com.appeaser.sublimepickerlibrary.datepicker.SublimeDatePicker
             android:id="@+id/date_range_picker"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:initWithRange="@{true}"
@@ -32,8 +33,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread" />
 
+
         <Button
             android:id="@+id/bt_filter"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_padding"
@@ -48,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/til_min" />
 
         <android.support.design.widget.TextInputLayout
+            android:visibility="gone"
             android:id="@+id/til_min"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -66,6 +70,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:visibility="gone"
             android:id="@+id/til_max"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,9 +88,9 @@
         </android.support.design.widget.TextInputLayout>
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

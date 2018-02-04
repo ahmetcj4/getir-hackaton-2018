@@ -4,18 +4,32 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
+import android.support.annotation.IntDef;
 import android.view.View;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by ahmet on 1/30/2018.
  */
 
 public class FilterViewModel extends ViewModel {
+
+    public static final int DEFAULT = 0;
+    public static final int LOADING = 1;
+    @IntDef({DEFAULT, LOADING})
+    @Retention(RetentionPolicy.SOURCE)
+
+    public @interface FilterStatus {
+    }
+
     private MutableLiveData<Integer> communicationLiveData = new MutableLiveData<>();
     private ObservableField<String> minText = new ObservableField<>();
     private ObservableField<String> maxText = new ObservableField<>();
 
     public FilterViewModel() {
+        communicationLiveData.setValue(DEFAULT);
         minText.addOnPropertyChangedCallback(new ObservableField.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
@@ -36,7 +50,7 @@ public class FilterViewModel extends ViewModel {
 
 
     public void performFilter(View v) {
-        communicationLiveData.postValue(1);
+        communicationLiveData.postValue(LOADING);
     }
 
     public ObservableField<String> getMinText() {
@@ -61,6 +75,7 @@ public class FilterViewModel extends ViewModel {
 
     /**
      * compares two string assuming they can be converted to integer values
+     *
      * @param first
      * @param second
      * @return
