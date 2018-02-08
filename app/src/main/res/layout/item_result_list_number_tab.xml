@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,19 +10,19 @@
             type="com.omka.mackhaton.screen.showResults.ResultITabsViewModel" />
     </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:layout_width="@dimen/bt_tab_size"
+        android:layout_height="@dimen/bt_tab_size"
         android:layout_margin="@dimen/minimal_padding"
+        android:background="@{vm.selected?@drawable/bt_tab_selected:@drawable/bt_tab_normal}"
+        android:fontFamily="roboto"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.tabName}"
-            android:textAppearance="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"
-            tools:text="1" />
-
-    </LinearLayout>
+        android:onClick="@{vm::performClick}"
+        android:text="@{String.valueOf(vm.tabName)}"
+        android:textAlignment="center"
+        android:textColor="@{vm.selected?@android:color/white:@color/colorAccent}"
+        android:textSize="18sp"
+        android:typeface="normal"
+        app:layout_constraintDimensionRatio="1"
+        tools:text="1" />
 </layout>

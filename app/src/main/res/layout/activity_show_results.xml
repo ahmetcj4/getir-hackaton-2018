@@ -8,48 +8,50 @@
         <variable
             name="showResultsVM"
             type="com.omka.mackhaton.screen.showResults.ShowResultsViewModel" />
-        <import type="com.omka.mackhaton.common.ViewUtils"/>
-        <import type="android.support.v7.widget.DividerItemDecoration"/>
+
+        <import type="com.omka.mackhaton.common.ViewUtils" />
+
+        <import type="android.support.v7.widget.DividerItemDecoration" />
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
+        android:orientation="horizontal"
         tools:context="com.omka.mackhaton.screen.showResults.ShowResultsActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/normal_padding"
+            android:orientation="vertical"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:itemLayout="@{@layout/item_result_list_number_tab}"
+            app:itemList="@{showResultsVM.itemTabs}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_result_list_number_tab" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_results"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingTop="@dimen/normal_padding"
-            android:paddingBottom="@dimen/normal_padding"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
             android:orientation="vertical"
+            android:padding="@dimen/minimal_padding"
             app:itemLayout="@{@layout/item_result}"
             app:itemList="@{showResultsVM.items}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rv_pages"
             tools:listitem="@layout/item_result" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_pages"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:itemLayout="@{@layout/item_result_list_number_tab}"
-            app:itemList="@{showResultsVM.itemTabs}"
-            app:divider="@{ViewUtils.getDividerItemDecoration(context,DividerItemDecoration.HORIZONTAL)}"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintRight_toRightOf="@id/rv_results"
-            app:layout_constraintLeft_toLeftOf="@id/rv_results"
-            app:layout_constraintTop_toBottomOf="@id/rv_results"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_result_list_number_tab" />
 
-
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>
