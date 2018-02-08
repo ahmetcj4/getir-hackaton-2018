@@ -28,19 +28,26 @@ public class SearchTask {
         return instance;
     }
 
-    public List<Record> load(){
-        return records;
+    public int pageCount(){
+        if (recordsIsEmpty())return 0;
+        return (int) Math.ceil(records.size()/10.0);
+    }
+
+    public List<Record> load(int i){
+        if (recordsIsEmpty()||i>=pageCount())return null;
+        int fromIndex = i * 10;
+        int toIndex = Math.min((i+1) * 10,records.size());
+        return records.subList(fromIndex,toIndex);
     }
 
     public void fetch(SearchRequest searchRequest, @NonNull SearchResultListener listener) {
-        records = null;
         NetworkApi.getInstance().search(searchRequest, new NetworkCallback<SearchResult>() {
             @Override
             public void onSuccess(SearchResult response) {
                 switch (response.getCode()){
                     case 0:
                         records = response.getRecords();
-                        if (records == null||records.isEmpty()){
+                        if (recordsIsEmpty()){
                             listener.onResult(FAIL,"No Matching Results");
                         } else {
                             listener.onResult(SUCCESS,response.getMsg());
@@ -62,6 +69,10 @@ public class SearchTask {
                 listener.onResult(FAIL,"Unknown Error");
             }
         });
+    }
+
+    public boolean recordsIsEmpty() {
+        return records==null|| records.isEmpty();
     }
 
     public static final int FAIL = 0;
