@@ -3,6 +3,12 @@
   <br>
 </h1>
 
+<p align="center">
+  <a href="https://github.com/ahmetcj4/getir-hackaton-2018/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="Apache">
+  </a>
+</p>
+    
 <h4 align="center"><a href="http://hackathon.getir.com/" target="_blank">Getir hackathon quest</a> android app.</h4>
 
 <p align="center">
