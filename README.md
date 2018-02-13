@@ -12,7 +12,9 @@
   <a href="#links">Links</a> •
 </p>
 
-![screenshot](todo gif here)
+<p align="center">
+  <img src="https://github.com/ahmetcj4/getir-hackaton-2018/blob/master/ss.gif" alt="Screenshot"/>
+</p>
 
 ## Description
 <a href="http://hackathon.getir.com/" target="_blank">Getir hackathon quest</a> android app written in java with clean architecture, MVVM, Data Binding and Android architecture components. Dagger and rx intentionally avoided for the sake of simplicity of the project.
